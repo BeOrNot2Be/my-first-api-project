@@ -1,0 +1,30 @@
+{%extends 'index.html'%}
+{%block body%}
+	<script src="{{url_for('static',filename='Chart.min.js')}}"></script>
+	<canvas id="myChart" width="100%" height="50%"></canvas>
+	<script>
+    	var ctx = document.getElementById("myChart");
+		var myChart = new Chart(ctx, {
+    		type: 'line',
+    		data: {
+        		labels: {{time|tojson }},
+        		datasets: [{
+                    label: '{{server}}',
+            		data: {{ms|tojson }},
+        		}]
+    		},
+    		options: {
+        		scales: {
+            		yAxes: [{
+                		ticks: {
+                    		beginAtZero:true
+                		}
+            		}]
+        		}
+    		}
+		});
+	</script>
+	{%for ping in pings%}
+	<p>{{ping}}</p>
+	{%endfor%}
+{%endblock%}

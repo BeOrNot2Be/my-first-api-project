@@ -1,0 +1,7 @@
+{%extends 'index.html'%}
+{%block body%}
+	<h3>Pinging</h3>
+	{%for server in servers%}
+	<a href="/{{server}}">{{server}}</a><br>
+	{%endfor%}
+{%endblock%}

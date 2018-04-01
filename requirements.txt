@@ -1,0 +1,5 @@
+Flask==0.12.2
+Flask-HTTPAuth==3.2.3
+passlib==1.7.1
+SQLAlchemy==1.2.2
+itsdangerous==0.24
