@@ -7,7 +7,7 @@ from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 
-#work with database
+# work with database
 Base = declarative_base()
 
 
@@ -65,7 +65,8 @@ Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-#functions what work with pings requests + database
+
+# functions what work with pings requests + databas
 def make_server(name, IP, datetime=datetime.datetime.utcnow(),):
     server = session.query(Server).filter_by(name=name).first()
     print(server)

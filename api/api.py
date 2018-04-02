@@ -6,7 +6,7 @@ import os.path
 import datetime
 import multiprocessing
 from flask_httpauth import HTTPBasicAuth
-#add path to database
+# add path to database
 db_dir = (
     os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     + '/db/')
@@ -23,7 +23,7 @@ app.config['SECRET_KEY'] = 'thisissecret'
 auth = HTTPBasicAuth()
 
 
-#authentication
+# authentication
 @auth.verify_password
 def verify_password(username_or_token, password):
     user = User.verify_auth_token(token=username_or_token, app=app)
@@ -77,7 +77,7 @@ def get_auth_token():
     return jsonify({'token': token.decode('ascii')})
 
 
-#work with servers and database
+# work with servers and database
 @app.route('/', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def start():
 
@@ -129,7 +129,8 @@ def start():
         finally:
             return jsonify({"status": status})
 
-#get pings requests 
+
+# get pings requests
 @auth.login_required
 @app.route('/<server_name>', methods=['GET'])
 def get(server_name):
@@ -157,7 +158,8 @@ def get(server_name):
         status = "NAME_DID_NOT_FOUND"
         return jsonify({"status": status})
 
-#get ping with asyncio
+
+# get ping with asyncio
 async def ping(loop, server):
     while True:
         p = await asyncio.create_subprocess_exec(
@@ -193,7 +195,7 @@ def pinging():
             loop.close()
 
 
-#run my api with multiprocessing [falsk + pinging]
+# run my api with multiprocessing [falsk + pinging]
 if __name__ == '__main__':
     t1 = multiprocessing.Process(target=pinging)
     t1.start()
