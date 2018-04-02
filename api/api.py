@@ -130,7 +130,25 @@ def start():
             return jsonify({"status": status})
 
 
+@app.route('/api', methods=['GET'])
+def det_json():
+    try:
+        return jsonify({'servers': get_servers()})
+    except Exception:
+        return jsonify({"status": "ERRORE"})
+
+
 # get pings requests
+@app.route('/api/<server_name>', methods=['GET'])
+def det_json_servername(server_name):
+    try:
+        server_info = get_server(name=str(server_name))
+        if not server_info:
+            status = "NOT_PINGED_YET"
+            return jsonify({"status": status})
+        return jsonify({"status": status})
+
+
 @auth.login_required
 @app.route('/<server_name>', methods=['GET'])
 def get(server_name):
@@ -153,8 +171,7 @@ def get(server_name):
             time=time, ms=ms,
             pings=server_info)
 
-    except Exception as a:
-        print(a)
+    except Exception:
         status = "NAME_DID_NOT_FOUND"
         return jsonify({"status": status})
 
